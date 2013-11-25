@@ -94,7 +94,7 @@ LOCAL_C_INCLUDES += bionic \
 LOCAL_CFLAGS += -DHAVE_SELINUX
 
 LOCAL_STATIC_LIBRARIES += libvoldclient libsdcard \
-			  libminipigz libfsck_msdos
+			  libfsck_msdos
 
 LOCAL_STATIC_LIBRARIES += libminzip libunz libmincrypt \
 			  libmkyaffs2image_static \
@@ -272,8 +272,6 @@ include $(commands_recovery_local_path)/devices/Android.mk
 #include $(commands_recovery_local_path)/su/Android.mk
 #add device_image
 include $(commands_recovery_local_path)/device_image/Android.mk
-#add pigz to support tar.gz 
-include $(commands_recovery_local_path)/pigz/Android.mk
 include $(commands_recovery_local_path)/voldclient/Android.mk
 commands_recovery_local_path :=
 
