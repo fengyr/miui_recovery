@@ -855,6 +855,7 @@ static struct vold_callbacks v_callbacks = {
 
 int main(int argc, char **argv) {
 
+
 	 //umask first 
 	 umask(0);
         //for adb sideload 
