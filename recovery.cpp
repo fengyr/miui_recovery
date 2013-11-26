@@ -48,8 +48,6 @@ extern "C" {
 #include "cutils/properties.h"
 #include "cutils/android_reboot.h"
 #include "libcrecovery/common.h"
-#include "yaffs2_static/mkyaffs2image.h"
-#include "yaffs2_static/unyaffs.h"
 #include "flashutils/flashutils.h"
 #include "voldclient/voldclient.h"
 }
@@ -857,6 +855,8 @@ static struct vold_callbacks v_callbacks = {
 
 int main(int argc, char **argv) {
 
+	//umask first 
+	umask(0);
         //for adb sideload 
 	if (argc == 2 && strcmp(argv[1], "--adbd") == 0) {
 		adb_main();
@@ -895,7 +895,7 @@ int main(int argc, char **argv) {
             property_set("ctl.stop", argv[1]);
             return 0;
         }
-        return busybox_driver(argc, argv);
+       //return busybox_driver(argc, argv);
     }
 
     int is_user_initiated_recovery = 0;   
@@ -1047,10 +1047,10 @@ int main(int argc, char **argv) {
 	//we are starting up in user initiated recovery here
 	//let's set up some defaut options;
 	ui_set_background(BACKGROUND_ICON_INSTALLING);
-	if( 0 == root.check_for_script_file("/cache/recovery/openrecoveryscript")) {
+	if( 0 == load_volume->check_for_script_file("/cache/recovery/openrecoveryscript")) {
 		LOGI("Runing openrecoveryscript...\n");
 		int ret;
-		if (0 == (ret = root.run_ors_script("/tmp/openrecoveryscript"))) {
+		if (0 == (ret = load_volume->run_ors_script("/tmp/openrecoveryscript"))) {
 			status = INSTALL_SUCCESS;
 			//ui_set_show_text(0);
 		} else {
