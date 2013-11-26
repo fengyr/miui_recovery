@@ -10,7 +10,6 @@ LOCAL_SRC_FILES := \
 	roots.cpp \
 	firmware.cpp \
 	nandroid.cpp \
-	verifier.cpp \
 	root_device.cpp \
 	reboot.cpp \
 	miui_func.cpp \
@@ -89,7 +88,8 @@ LOCAL_C_INCLUDES += bionic \
 		    external/freetype/include \
 		    external/freetype/build \
 		    external/zlib \
-		    external/libpng
+		    external/libpng \
+		    system/core/include 
 
 LOCAL_CFLAGS += -DHAVE_SELINUX
 
@@ -104,7 +104,8 @@ LOCAL_STATIC_LIBRARIES += libminzip libunz libmincrypt \
 			  libmd5  libmiui
 
 LOCAL_STATIC_LIBRARIES += libft2 libpng libminadbd \
-			  libfs_mgr liblog 
+			  libfs_mgr liblog \
+			  libminshacrypt libmincrypt 
 
 ifeq ($(TARGET_USERIMAGES_USE_F2FS), true)
  LOCAL_CFLAGS += -DUSE_F2FS
@@ -187,7 +188,7 @@ LOCAL_MODULE := verifier_test
 LOCAL_CPPFLAGS := -std=c90
 LOCAL_MODULE_TAGS := tests
 
-LOCAL_STATIC_LIBRARIES := libmincrypt 
+LOCAL_STATIC_LIBRARIES := libmincrypt libminshacrypt 
 LOCAL_SHARED_LIBRARIES :=  libcutils libstdc++ libc
 
 include $(BUILD_EXECUTABLE)
@@ -223,7 +224,7 @@ endif
 LOCAL_C_INCLUDES += system/extras/ext4_utils system/core/fs_mgr/include
 LOCAL_SHARED_LIBRARIES += libc liblog libcutils libmtdutils \
 			  libstdc++
-LOCAL_STATIC_LIBRARIES += libmincrypt
+LOCAL_STATIC_LIBRARIES += libmincrypt libminshacrypt libselinux  
 
 include $(BUILD_SHARED_LIBRARY)
 
