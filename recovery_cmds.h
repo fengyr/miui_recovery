@@ -24,7 +24,6 @@ extern "C" {
 #include <stdio.h>
 #include <string.h>
 
-//#include "extendedcommands.h"
 #include "nandroid.h"
 #include "dedupe/dedupe.h"
 

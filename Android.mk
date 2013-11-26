@@ -97,15 +97,14 @@ LOCAL_STATIC_LIBRARIES += libvoldclient libsdcard \
 			  libfsck_msdos
 
 LOCAL_STATIC_LIBRARIES += libminzip libunz libmincrypt \
-			  libmkyaffs2image_static \
-			  libunyaffs_static \
+			  libmkyaffs2image libunyaffs \
 			  libdedupe libselinux \
 			  libedify libcrecovery \
 			  libcrypto_static  \
 			  libmd5  libmiui
 
 LOCAL_STATIC_LIBRARIES += libft2 libpng libminadbd \
-			  libfs_mgr liblog libbusybox  
+			  libfs_mgr liblog 
 
 ifeq ($(TARGET_USERIMAGES_USE_F2FS), true)
  LOCAL_CFLAGS += -DUSE_F2FS
@@ -263,8 +262,6 @@ include $(commands_recovery_local_path)/applypatch/Android.mk
 include $(commands_recovery_local_path)/dedupe/Android.mk
 #add some shell script
 include $(commands_recovery_local_path)/utilities/Android.mk
-#add yaffs2_static
-include $(commands_recovery_local_path)/yaffs2_static/Android.mk
 #add digest
 include $(commands_recovery_local_path)/digest/Android.mk
 #add device conf
