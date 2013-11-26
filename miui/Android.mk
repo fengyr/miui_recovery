@@ -2,6 +2,13 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+MIUI_VERSION := 4.0.0
+ifndef MIUI_NAME
+    MIUI_NAME := MIUI REC by LaoYang 
+endif
+MIUI_BUILD := $(shell date +"%Y-%M-%d")
+
+
 
 libmiui_common_includes = $(LOCAL_PATH)/include \
 			  external/zlib \
@@ -113,6 +120,12 @@ endif
 ifeq ($(BOARD_HAS_FLIPPED_SCREEN), true)
     LOCAL_CFLAGS += -DBOARD_HAS_FLIPPED_SCREEN
 endif
+
+LOCAL_CFLAGS += -DCONST_MIUI_BUILD="$(MIUI_BUILD)"
+LOCAL_CFLAGS += -DCONST_MIUI_VERSION="$(MIUI_VERSION)"
+LOCAL_CFLAGS += -DCONST_MIUI_NAME="$(MIUI_NAME)"
+
+
 
 LOCAL_SHARED_LIBRARIES += libc libm libz
 LOCAL_STATIC_LIBRARIES := libft2 libpng
