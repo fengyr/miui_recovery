@@ -1,10 +1,10 @@
-'EN README:'
-<p>
-hold the miui recovery source code
-modify by Gaojiquan LaoYang
-port recovery binary to c++
-now can build on cm-11.0  source code
-</p>
+'EN README'
+
+this repo hold the miui recovery source code.
+modify by Gaojiquan LaoYang.
+port recovery binary to c++.
+now can build on cm-11.0  source code.
+
 
 -------------------------------------------------------------
 #support functions
@@ -18,7 +18,7 @@ now can build on cm-11.0  source code
 
 'disable restore the official Recovery'
 
-'dup && tar backup method '
+'dup && tar backup method'
 
 'support tar.gz backup method'
 
@@ -73,7 +73,7 @@ tag 'v3.5.0' && 'v3.2.0' only can build on cm-10.1 source code tree
 
 <a href="https://codeload.github.com/sndnvaps/miui_recovery/zip/v3.5.0"> v3.5.0.zip </a>
 
-< a href="https://codeload.github.com/sndnvaps/miui_recovery/tar.gz/v3.5.0"> v3.5.0.tar.gz </a>
+<a href="https://codeload.github.com/sndnvaps/miui_recovery/tar.gz/v3.5.0"> v3.5.0.tar.gz </a>
 
 ----------------------------------------------------------------------
 
