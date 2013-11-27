@@ -1,22 +1,30 @@
-EN README:
-
+'EN README:'
+<p>
 hold the miui recovery source code
 modify by Gaojiquan LaoYang
 port recovery binary to c++
-now can build on CM10.1 source code
+now can build on cm-11.0  source code
+</p>
 
+-------------------------------------------------------------
 #support functions
-ORS
-full touch support 
-set brightness
-root devices
-disable restore the official Recovery
-dup && tar backup method 
-support tar.gz backup method
+'ORS(Open Recovery Script)'
 
-adb sideload (thanks petercxy)
-...
-......
+'full touch support'
+
+'set brightness'
+
+'root devices'
+
+'disable restore the official Recovery'
+
+'dup && tar backup method '
+
+'support tar.gz backup method'
+
+'adb sideload' thanks [@PeterCxy](https://github.com/PeterCxy)
+
+----------------------------------------------------------------
 
 
 
@@ -35,7 +43,7 @@ you should add the below line to init.rc
 export LD_LIBRARY_PATH .:/sbin/
 ```
 
-zh-CN README
+'zh-CN README'
 
 这里是托管 MIUI RECOVERY源代码的地方
 
@@ -52,19 +60,23 @@ export LD_LIBRARY_PATH .:/sbin
 
 [how to support you device](/devices/README.md)
 
-Releases:
+---------------------------------------------------------------------
+#Releases:
+
+tag 'v3.5.0' && 'v3.2.0' only can build on cm-10.1 source code tree 
+
+
 <a href="https://github.com/sndnvaps/miui_recovery/archive/v3.2.0.tar.gz"> v3.2.0.tar.gz </a>
+
+[V3.5.0](https://github.com/sndnvaps/miui_recovery/releases/tag/v3.5.0)
+
+
+<a href="https://codeload.github.com/sndnvaps/miui_recovery/zip/v3.5.0"> v3.5.0.zip </a>
+
+< a href="https://codeload.github.com/sndnvaps/miui_recovery/tar.gz/v3.5.0"> v3.5.0.tar.gz </a>
 
 ----------------------------------------------------------------------
 
-#add support flipped screen
-
-为的就是处理屏幕倒置180度的问题.
-
-```
-#往BoardConfig.mk文件中添加如一下的内容
-BOARD_HAS_FLIPPED_SCREEN := true
-```
 
 
 
