@@ -1,49 +1,51 @@
-'EN README'
+`EN README`
 
-this repo hold the miui recovery source code.
-modify by Gaojiquan LaoYang.
-port recovery binary to c++.
-now can build on cm-11.0  source code.
+- This repo hold the miui recovery source code.
+- modify by Gaojiquan LaoYang.
+- port recovery binary to c++.
+- now can build on cm-11.0  source code.
 
 
 -------------------------------------------------------------
+
 #support functions
-'ORS(Open Recovery Script)'
 
-'full touch support'
+`ORS(Open Recovery Script)` [http://teamw.in/OpenRecoveryScript](http://teamw.in/OpenRecoveryScript)
 
-'set brightness'
+`full touch support`
 
-'root devices'
+`set brightness`
 
-'disable restore the official Recovery'
+`root devices`
 
-'dup && tar backup method'
+`disable restore the official Recovery`
 
-'support tar.gz backup method'
+`dup && tar backup method`
 
-'adb sideload' thanks [@PeterCxy](https://github.com/PeterCxy)
+`support tar.gz backup method`
+
+`adb sideload` thanks [@PeterCxy](https://github.com/PeterCxy)
 
 ----------------------------------------------------------------
 
 
 
 
-if you need to use the device info from the 'recovery menu'
-you should add the line to Boardconfig.mk
+if you need to show the device info from the `recovery menu`
+you should add the line to `Boardconfig.mk`
 
 ```bash
-MIUI_DEVICE_CONF := ../../../device/ZTE/N909/device.conf
-MIUI_INIT_CONF := ../../../device/ZTE/N909/init.conf
+MIUI_DEVICE_CONF := ../../../device/PRODUCT_NAME/DEVICE_NAME/device.conf
+MIUI_INIT_CONF := ../../../device/PRODUCT_NAME/DEVICE_NAME/init.conf
 ```
 
-you should add the below line to init.rc
+you should add the below line to `init.rc`
 
 ```bash
 export LD_LIBRARY_PATH .:/sbin/
 ```
 
-'zh-CN README'
+`zh-CN README`
 
 这里是托管 MIUI RECOVERY源代码的地方
 
@@ -53,7 +55,7 @@ export LD_LIBRARY_PATH .:/sbin/
 
 修改为动态库编译，所以需要在init.rc文件中添加下面的定义
 
-export LD_LIBRARY_PATH .:/sbin
+`export LD_LIBRARY_PATH .:/sbin`
 
 如何让MIUI_RECOVERY显示自己设定的信息：
 修改方法请参考
@@ -63,7 +65,7 @@ export LD_LIBRARY_PATH .:/sbin
 ---------------------------------------------------------------------
 #Releases:
 
-tag 'v3.5.0' && 'v3.2.0' only can build on cm-10.1 source code tree 
+tag `v3.5.0` && `v3.2.0` only can build on cm-10.1 source code tree 
 
 
 <a href="https://github.com/sndnvaps/miui_recovery/archive/v3.2.0.tar.gz"> v3.2.0.tar.gz </a>
