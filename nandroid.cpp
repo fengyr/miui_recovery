@@ -28,8 +28,6 @@ extern "C" {
 #include "libcrecovery/common.h"
 #include "flashutils/flashutils.h"
 #include "mtdutils/mounts.h"
-#include "yaffs2_static/mkyaffs2image.h"
-#include "yaffs2_static/unyaffs.h"
 }
 
 #include "cutils/properties.h"

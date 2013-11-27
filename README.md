@@ -26,6 +26,8 @@
 
 `adb sideload` thanks [@PeterCxy](https://github.com/PeterCxy)
 
+`libiniparser' make it support ini files 
+
 ----------------------------------------------------------------
 
 
@@ -63,6 +65,27 @@ export LD_LIBRARY_PATH .:/sbin/
 [how to support you device](/devices/README.md)
 
 ---------------------------------------------------------------------
+
+#settings.ini
+
+```
+#MIUI RECOVERY V4.0.0
+#modified by Gaojiquan LaoYang
+[ziplflash]
+md5sum=1;
+
+[dev]
+#ifdef ENABLE_LOKI
+loki_support=1
+#endif
+signaturecheck=0
+```
+
+
+
+
+---------------------------------------------------------------------
+
 #Releases:
 
 tag `v3.5.0` && `v3.2.0` only can build on cm-10.1 source code tree 
@@ -78,7 +101,5 @@ tag `v3.5.0` && `v3.2.0` only can build on cm-10.1 source code tree
 <a href="https://codeload.github.com/sndnvaps/miui_recovery/tar.gz/v3.5.0"> v3.5.0.tar.gz </a>
 
 ----------------------------------------------------------------------
-
-
 
 

@@ -248,63 +248,7 @@ int root_device::un_of_recovery() {
 	}
      return 0;
 }
-/* Remove signature check to support ors */
-/*
-int check_sig() {
-	FILE* f;
-	char SIG_STAT[20];
-	int ret = 0;
-	f = fopen(SIG_CHECK_FILE,"r");
-	 if (f != NULL ) {
-		 printf("success open file: %s..\n",SIG_CHECK_FILE);
 
-		 fgets(SIG_STAT,2,f);
-                   printf(" %s -> %s..\n",SIG_STAT, SIG_CHECK_FILE);
-		   if (SIG_STAT != NULL) {
-		 if (strcmp(SIG_STAT, "E")== 0) {
-				 ret = 1;
-		 } else if (strcmp(SIG_STAT, "D")==0 ) {
-			 ret = 0;
-		 } else {
-			 printf("read stat error\n"); 
-		   }
-	 } else {
-		 printf("Cann't open %s .. \n", SIG_CHECK_FILE);
-		 return -1;
-	 }
-
-     }
-	 fclose(f);
-	return ret;
-}
-
-*/
-
-/*
-int root_device_main(char *cmd) {
-	int ret = 0;
-	if(cmd != NULL) {
-	if(0 == strcmp(cmd,"root_device")) {
-	    	ret = install_supersu();
-#ifdef DEBUG_ROOT 
-		if (ret == -1) {
-			printf("Failed to install supersu to system..\n");
-		} else {
-			printf("success to install supersu to system..\n");
-		}
-#else
-			return ret;
-#endif
-	}
-	if(0 == strcmp(cmd,"un_of_rec")) {
-		ret = un_of_recovery();
-		return ret;
-	}
-	
-   }
-	return 0;
-}
-*/
 // # *** Thanks to PhilZ for all of this! *** #
 // He has been such a HUGE part of where this recovery has ended up.
 //
@@ -486,7 +430,8 @@ int root_device::run_ors_script(const char* ors_script) {
 				ors_wimax = "1";
 				ui_print("WIMAX\n");
 			} else if (value2[i] == 'M' || value2[i] == 'm') {
-                            ui_print("MD5 check skip option ignored in CWMR\n");
+				ui_print("ignore md5sum in ors\n");
+
                         }
                     }
                 } else

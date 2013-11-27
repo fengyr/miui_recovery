@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <fs_mgr.h>
+#include "iniparser/iniparser.h"
 
 #ifdef __cplusplus
 extern "C" {
