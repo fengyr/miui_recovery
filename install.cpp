@@ -152,42 +152,6 @@ static int try_update_binary(const char *path, ZipArchive *zip, int* wipe_cache)
     }
 
 
-    //If exists, extract file_contexts from the zip file
-    //Thanks twrp's Dees-Troy
-    // begin -->
-    const ZipEntry* selinx_contexts = mzFindZipEntry(zip, "file_contexts");
-    if (selinx_contexts == NULL) {
-	    mzCloseZipArchive(zip);
-	    LOGI("Zip does not contain SElinux file_contexts file in its root.\n");
-    } else {
-	    char *output_filename = "/file_contexts";
-	    LOGI("Zip contains SElinux file_contexts file in its root. Extracting to '%s'\n", output_filename);
-
-	    //Delete any file_contexts
-	    if (stat(output_filename,&st) == 0) 
-		    unlink(output_filename);
-
-	    int file_contexts_fd = creat(output_filename, 0644);
-	    if (file_contexts_fd < 0) {
-		    mzCloseZipArchive(zip);
-		    LOGE("Could not extract file_contexts to '%s'\n", output_filename);
-		    return INSTALL_ERROR;
-	    }
-
-	    ok = mzExtractZipEntryToFile(zip, selinx_contexts, file_contexts_fd);
-    close(file_contexts_fd);
-
-    if (!ok) {
-	    mzCloseZipArchive(zip);
-	    LOGE("Could not extract '%s'\n",ASSUMED_UPDATE_BINARY_NAME);
-	    return INSTALL_ERROR;
-    }
-    mzCloseZipArchive(zip);
-    }
-    // <-- end 
-
-
-
     int pipefd[2];
     pipe(pipefd);
     char tmpbuf[256];

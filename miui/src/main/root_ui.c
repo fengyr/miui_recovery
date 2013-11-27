@@ -45,6 +45,12 @@
 #include "../../../minadbd/adb.h" //for ADB_SIDELOAD_FILENAME 
 #include "../../../sideload.h"
 
+#ifdef ENABLE_LOKI
+#include "../../../loki/compact_loki.h"
+#endif
+
+
+
 #define ROOT_DEVICE 0x8
 #define DISABLE_OFFICAL_REC 0x9
 #define FREE_SDCARD_SPACE 0xA
@@ -252,85 +258,6 @@ static STATUS sideload_menu_show(struct _menuUnit *p) {
 
 
 
-
-/*
-//refresh_md5_check_state();
-int is_md5_enabled() {
-	struct stat st;
-	char fmt[5];
-	miuiIntent_send(INTENT_MOUNT, 1, "/sdcard");
-//	if (stat(MD5_STATE, &st) == 0) {
-        FILE *md5_file = fopen(MD5_STATE, "r");
-        if (NULL == md5_file) { //当文件不存在的时候，默认为开启md5检测
-	return 1;
-	}
-        fread(fmt, 1, sizeof(fmt), md5_file);
-        fclose(md5_file);
-        
-        fmt[3] = NULL;
-       if (0 == strcmp(fmt, "on"))
-              return 1; //开启md5检测
-       return 0; //关闭md5检测
-}
-
-static STATUS enable_or_disable_md5_check(struct _menuUnit* p) {
-	if (RET_YES == miui_confirm(3, p->name, p->desc, p->icon)) {
-		miui_busy_process();
-		if (is_md5_enabled()) {
-			menuUnit_set_name(md5_node, "<~root.disabled.md5>");
-			printf("set md5 check off\n");
-			miui_writetofs(MD5_STATE, "off");
-
-		} else {
-			menuUnit_set_name(md5_node, "<~root.enabled.md5>");
-			printf("set md5 check on\n");
-			miui_writetofs(MD5_STATE, "on");
-		}
-	}
-
-   return MENU_BACK;
-}
-
-static STATUS tool_menu_show(struct _menuUnit* p) {
-	if (is_md5_enabled()) { //当为1的时候，表示已经打开md5检测，这个里就需要关闭md5选项
-		menuUnit_set_name(md5_node, "<~root.disabled.md5>");
-		menuUnit_set_icon(md5_node, "@alert");
-	} else {
-		menuUnit_set_name(md5_node, "<~root.enabled.md5>");
-		menuUnit_set_icon(md5_node, "@alert");
-	}
-	 //show menu
-    return_val_if_fail(p != NULL, RET_FAIL);
-    int n = p->get_child_count(p);
-    return_val_if_fail(n > 0, RET_FAIL);
-    int selindex = 0;
-    return_val_if_fail(n >= 1, RET_FAIL);
-    return_val_if_fail(n < ITEM_COUNT, RET_FAIL);
-    struct _menuUnit *temp = p->child;
-    return_val_if_fail(temp != NULL, RET_FAIL);
-    char **menu_item = malloc(n * sizeof(char *));
-    assert_if_fail(menu_item != NULL);
-    char **icon_item=malloc(n * sizeof(char *));
-    assert_if_fail(icon_item != NULL);
-    char **title_item= malloc(n * sizeof(char *));
-    assert_if_fail(title_item != NULL);
-    int i = 0;
-    for (i = 0; i < n; i++)
-    {
-        menu_item[i] = temp->name;
-        title_item[i] = temp->title_name;
-        icon_item[i] = temp->icon;
-        temp = temp->nextSilbing;
-    }
-    selindex = miui_menubox(p->name, menu_item, n);
-    p->result = selindex;
-    if (menu_item != NULL) free(menu_item);
-    if (title_item != NULL) free(title_item);
-    if (icon_item != NULL) free(icon_item);
-    return p->result;
-}
-
-*/
 
 struct _menuUnit* ors_ui_init() {
 	struct _menuUnit* p = common_ui_init();

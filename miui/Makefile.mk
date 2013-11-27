@@ -72,6 +72,12 @@ libmiui_common_src_files :=libs/png/png.c \
 
 LOCAL_SRC_FILES := \
     $(libmiui_common_src_files)
+ifeq ($(ENABLE_LOKI_RECOVERY),true)
+   LOCAL_CFLAGS += -DENABLE_LOKI
+   LOCAL_SRC_FILES += \
+		      loki/compact_loki.c
+endif
+
 LOCAL_C_INCLUDES += $(libmiui_common_includes)
 LOCAL_CFLAGS := $(MYDEFINE_CFLAGS)
 LOCAL_STATIC_LIBRARIES += libc libm

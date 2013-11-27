@@ -51,6 +51,7 @@ void ui_show_progress(float portion, int seconds);
 void ui_set_progress(float fraction);  // 0.0 - 1.0 within the defined scope
 void ui_set_text(char *str);
 
+
 // Default allocation of progress bar segments to operations
 static const int VERIFICATION_PROGRESS_TIME = 60;
 static const float VERIFICATION_PROGRESS_FRACTION = 0.25;

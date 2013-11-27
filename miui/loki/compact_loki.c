@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "compact_loki.h"
-#include "common.h"
+#include "../../common.h"
 
 #define VERSION "2.0"
 

@@ -51,6 +51,13 @@ libmiui_common_src_files := \
     src/main/miui.c \
     src/main/root_ui.c 
 
+ifeq ($(ENABLE_LOKI_RECOVERY),true)
+   LOCAL_CFLAGS += -DENABLE_LOKI
+   LOCAL_SRC_FILES += \
+		      loki/compact_loki.c
+endif
+
+
 # libs/freetype/autofit/autofit.c \
     libs/freetype/base/basepic.c \
     libs/freetype/base/ftapi.c \
@@ -124,7 +131,6 @@ endif
 LOCAL_CFLAGS += -DCONST_MIUI_BUILD="$(MIUI_BUILD)"
 LOCAL_CFLAGS += -DCONST_MIUI_VERSION="$(MIUI_VERSION)"
 LOCAL_CFLAGS += -DCONST_MIUI_NAME="$(MIUI_NAME)"
-
 
 
 LOCAL_SHARED_LIBRARIES += libc libm libz
