@@ -58,41 +58,6 @@ ifeq ($(ENABLE_LOKI_RECOVERY),true)
 endif
 
 
-# libs/freetype/autofit/autofit.c \
-    libs/freetype/base/basepic.c \
-    libs/freetype/base/ftapi.c \
-    libs/freetype/base/ftbase.c \
-    libs/freetype/base/ftbbox.c \
-    libs/freetype/base/ftbitmap.c \
-    libs/freetype/base/ftdbgmem.c \
-    libs/freetype/base/ftdebug.c \
-    libs/freetype/base/ftglyph.c \
-    libs/freetype/base/ftinit.c \
-    libs/freetype/base/ftpic.c \
-    libs/freetype/base/ftstroke.c \
-    libs/freetype/base/ftsynth.c \
-    libs/freetype/base/ftsystem.c \
-    libs/freetype/cff/cff.c \
-    libs/freetype/pshinter/pshinter.c \
-    libs/freetype/psnames/psnames.c \
-    libs/freetype/raster/raster.c \
-    libs/freetype/sfnt/sfnt.c \
-    libs/freetype/smooth/smooth.c \
-    libs/freetype/truetype/truetype.c \
-    libs/png/png.c \
-    libs/png/pngerror.c \
-    libs/png/pnggccrd.c \
-    libs/png/pngget.c \
-    libs/png/pngmem.c \
-    libs/png/pngpread.c \
-    libs/png/pngread.c \
-    libs/png/pngrio.c \
-    libs/png/pngrtran.c \
-    libs/png/pngrutil.c \
-    libs/png/pngset.c \
-    libs/png/pngtrans.c \
-    libs/png/pngvcrd.c \
-   # src/main/tool_ui.c 
 
 LOCAL_SRC_FILES := \
     $(libmiui_common_src_files) \
@@ -134,7 +99,7 @@ LOCAL_CFLAGS += -DCONST_MIUI_NAME="$(MIUI_NAME)"
 
 
 LOCAL_SHARED_LIBRARIES += libc libm libz
-LOCAL_STATIC_LIBRARIES := libft2 libpng
+LOCAL_STATIC_LIBRARIES := libft2 libpng libiniparser 
 LOCAL_MODULE := libmiui
 LOCAL_MODULE_TAGS := eng
 

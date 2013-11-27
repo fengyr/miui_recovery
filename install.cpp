@@ -41,6 +41,11 @@ extern "C" {
 
 #include "firmware.h"
 
+#ifdef ENABLE_LOKI
+   #include "miui/loki/compact_loki.h"
+#endif
+
+
 #define ASSUMED_UPDATE_BINARY_NAME  "META-INF/com/google/android/update-binary"
 #define ASSUMED_UPDATE_SCRIPT_NAME  "META-INF/com/google/android/update-script"
 #define PUBLIC_KEYS_FILE "/res/keys"
@@ -48,6 +53,48 @@ extern "C" {
 #define UPDATER_API_VERSION 3 // this should equal RECOVERY_API_VERSION , define in Android.mk 
 
 bool skip_check_device_info(char *ignore_device_info);
+
+
+int load_miui_settings()
+{
+	struct stat st;
+	miuiIntent_send(INTENT_MOUNT, 1, "/sdcard");
+     if (stat("/sdcard/miui_recovery", &st) != 0) {
+             miuiIntent_send(INTENT_SYSTEM, 1, "mkdir -p /sdcard/miui_recovery");
+       }
+
+    if (stat("/sdcard/miui_recovery/settings.ini", &st) != 0) {
+            printf("Loading default settings.ini file\n");
+
+           FILE *f = fopen("/sdcard/miui_recovery/settings.ini", "w+");
+           if (NULL == f) {
+                   printf("Error: Create [%s] failed\n","/sdcard/miui_recovery/settings.ini");
+           }
+
+           fprintf(f, "%s", "#settings.ini for miui recovery\n"
+                           "# miui recovery v4.0.0\n"
+                           "# modify by Gaojiquan LaoYang\n"
+                           "[zipflash]\n"
+                           "md5sum=1\n"
+                           "\n"
+                           "\n"
+                           "[dev]\n"
+#ifdef ENABLE_LOKI
+			   "loki_support=1\n"
+#endif
+                           "signaturecheck=0\n"
+                           "\n\n");
+           fclose(f);
+
+    }
+       
+    ini_install = iniparser_load("/sdcard/miui_recovery/settings.ini");
+    if (ini_install==NULL)
+        return 1;
+        
+    return 0;
+}
+
 
 
 // The update binary ask us to install a firmware file on reboot.  Set
@@ -340,8 +387,17 @@ static int really_install_package(const char *path)
     ui_print("Opening update package...\n");
 
     int err;
+
+     int currstatus;
+    if (1==load_miui_settings()) {
+        return INSTALL_CORRUPT;
+    }
+    
+    currstatus = iniparser_getboolean(ini_install, "dev:signaturecheck", -1);
+    iniparser_freedict(ini_install);
+    
  // check the signature 
-  if (signature_check_enabled) {
+  if (currstatus) {
         int numKeys;
         Certificate* loadedKeys = load_keys(PUBLIC_KEYS_FILE, &numKeys);
         if (loadedKeys == NULL) {
@@ -399,6 +455,23 @@ install_package(const char* path)
         fclose(install_log);
 	chmod(LAST_INSTALL_FILE, 0644);
     }
+
+#ifdef ENABLE_LOKI
+    int loki_support;
+    if (1 == load_miui_settings()) {
+	    return 1;
+    }
+
+    loki_support = iniparser_getboolean(ini_install, "dev:loki_support", -1);
+    iniparser_freedict(ini_install);
+    if(loki_support) {
+       ui_print("Checking if loki-fying is needed");
+       if (loki_check() != 0) {
+           return 1;
+       }
+    }
+#endif
+    
     return result;
 }
 

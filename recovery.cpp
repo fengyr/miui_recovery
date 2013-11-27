@@ -774,8 +774,8 @@ print_property(const char *key, const char *name, void *cookie) {
 
 static void setup_adbd() {
 	struct stat st;
-	static char* key_src = "/data/misc/adb/adb_keys";
-	static char* key_dest = "/adb_keys";
+	static char* key_src = (char*)"/data/misc/adb/adb_keys";
+	static char* key_dest = (char*) "/adb_keys";
 	//Mount /data and copy adb_keys to root if it exists
 	miuiIntent_send(INTENT_MOUNT, 1, "/data");
 	if (stat(key_src, &st) == 0) { //key_src exists

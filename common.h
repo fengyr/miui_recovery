@@ -111,6 +111,12 @@ int reboot_main(int argc, char *argv[]);
 //Write string to file
 void write_string_to_file(char* filename, const char* string);
 
+//load_miui_settings();
+dictionary * ini_install; // for ini file parser 
+int load_miui_settings(); // loading /sdcard/miui_recovery/settings.ini
+
+
+
 #ifdef __cplusplus
 }
 #endif

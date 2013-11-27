@@ -34,6 +34,10 @@
 #include "sideload.h"
 extern "C" {
 #include "minadbd/adb.h"
+#ifdef ENABLE_LOKI
+  #include "iniparser/iniparser.h"	
+  #include "miui/loki/compact_loki.h"
+#endif
 }
 int finished = 0;
 
@@ -102,10 +106,7 @@ void *adb_sideload_thread(void* v) {
 
 int start_adb_sideload() {
     finished = 0;
-#ifdef ENABLE_LOKI
-     int loki_support;
- #endif
-    
+ 
     stop_adbd();
     set_usb_driver(1);
 
@@ -127,21 +128,15 @@ int start_adb_sideload() {
     }
     set_usb_driver(0);
     maybe_restart_adbd();
-/*
-    struct stat st;
-    if (stat(install_file, &st) != 0) {
-	    if (errno == ENOENT) {
-		    printf("No package received.\n");
-	    } else {
-		    printf("Error readding package:\n %s\n", strerror(errno));
-	    }
-	    return -1;
-    }
-
-*/
 
 #ifdef ENABLE_LOKI
-    if(loki_support_enabled) {
+    int currstatus;
+    if (1==load_miui_settings()) {
+        return 1;
+    }
+    
+    currstatus = iniparser_getboolean(ini, "dev:loki_support", -1);
+    if(currstatus == 1) {
        ui_print("Checking if loki-fying is needed");
        int result;
        if(result = loki_check()) {
@@ -149,6 +144,7 @@ int start_adb_sideload() {
        }
     }
 #endif
+
     return 0;
 }
 

@@ -138,6 +138,9 @@ root.free.sd.space=Free sdcard space
 
 root.set.backup.format=Set default backup format
 
-root.enabled.md5=Enable md5 check the file
-root.disabled.md5=Disable md5 check the file
+root.dev=Dev opts
+root.md5sum=Turn on/off md5sum
+root.sigcheck=Turn on/off sigcheck
+root.loki=Turn on/off loki compact 
+
 

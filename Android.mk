@@ -46,6 +46,9 @@ ifeq ($(BOARD_HAS_REMOVABLE_STORAGE), true)
 	LOCAL_CFLAGS += -DBOARD_HAS_REMOVABLE_STORAGE
 endif
 
+ifeq ($(ENABLE_LOKI_RECOVERY),true)
+   LOCAL_CFLAGS += -DENABLE_LOKI
+ endif
 
 
 BOARD_RECOVERY_DEFINES := BOARD_RECOVERY_SWIPE BOARD_HAS_NO_SELECT_BUTTON BOARD_UMS_LUNFILE BOARD_RECOVERY_ALWAYS_WIPES BOARD_RECOVERY_HANDLES_MOUNT BOARD_TOUCH_RECOVERY RECOVERY_EXTEND_NANDROID_MENU TARGET_USE_CUSTOM_LUN_FILE_PATH TARGET_DEVICE TARGET_RECOVERY_FSTAB
@@ -98,7 +101,8 @@ LOCAL_STATIC_LIBRARIES += libminzip libunz libmincrypt \
 
 LOCAL_STATIC_LIBRARIES += libft2 libpng libminadbd \
 			  libfs_mgr liblog \
-			  libminshacrypt libmincrypt 
+			  libminshacrypt libmincrypt \
+			  libiniparser  
 
 ifeq ($(TARGET_USERIMAGES_USE_F2FS), true)
  LOCAL_CFLAGS += -DUSE_F2FS
@@ -264,5 +268,6 @@ include $(commands_recovery_local_path)/devices/Android.mk
 #add device_image
 include $(commands_recovery_local_path)/device_image/Android.mk
 include $(commands_recovery_local_path)/voldclient/Android.mk
+include $(commands_recovery_local_path)/iniparser/Android.mk 
 commands_recovery_local_path :=
 
