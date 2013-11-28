@@ -11,7 +11,6 @@ LOCAL_SRC_FILES := \
 	firmware.cpp \
 	nandroid.cpp \
 	root_device.cpp \
-	reboot.cpp \
 	miui_func.cpp \
 	utils_func.cpp \
 	recovery.cpp 
@@ -200,6 +199,7 @@ LOCAL_CFLAGS =
 LOCAL_SRC_FILES = sideload.cpp  \
 		  bootloader.cpp \
 		  verifier.cpp \
+		  reboot.cpp \
 		  ../../system/core/toolbox/newfs_msdos.c \
                   ../../system/core/toolbox/dynarray.c \
                   ../../system/vold/vdc.c \

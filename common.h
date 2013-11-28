@@ -105,8 +105,6 @@ typedef struct {
 
 // fopen a file, mounting volumes and making parent dirs as necessary.
 FILE* fopen_path(const char *path, const char *mode);
-//get the reboot_main(int argc, char *argv[])
-int reboot_main(int argc, char *argv[]);
 
 
 //Write string to file

@@ -26,11 +26,28 @@
 
 `adb sideload` thanks [@PeterCxy](https://github.com/PeterCxy)
 
-`libiniparser' make it support ini files 
+`libiniparser` make it support ini files
+
+#Dev opts 
+
+- `Turn on/off md5sum generate`
+
+- `compact loki devices` 
+
+- `signaturecheck` 
 
 ----------------------------------------------------------------
 
 
+---------------------------------------------------------
+#Recovery: Loki patching support 
+- Add support for automatically checking and making loki images
+for locked bootloader bypass on loki supported devices. Loki
+support is enabled with ENABLE_LOKI_RECOVERY.
+
+- Add `ENABLE_LOKI_RECOVERY=true` to `BoardConfig.mk` 
+
+-------------------------------------------------------
 
 
 if you need to show the device info from the `recovery menu`
