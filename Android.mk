@@ -200,6 +200,7 @@ LOCAL_SRC_FILES = sideload.cpp  \
 		  bootloader.cpp \
 		  verifier.cpp \
 		  reboot.cpp \
+		  mtdutils/mtdutils.c \
 		  ../../system/core/toolbox/newfs_msdos.c \
                   ../../system/core/toolbox/dynarray.c \
                   ../../system/vold/vdc.c \
