@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <fcntl.h>
+
 
 #include "edify/expr.h"
 #include "updater.h"
@@ -32,8 +32,6 @@
 // Where in the package we expect to find the edify script to execute.
 // (Note it's "updateR-script", not the older "update-script".)
 #define SCRIPT_NAME "META-INF/com/google/android/updater-script"
-#define SELINUX_CONTEXTS_ZIP "file_contexts"
-#define SELINUX_CONTEXTS_TMP "/tmp/file_contexts"
 
 
 struct selabel_handle *sehandle;
@@ -92,25 +90,6 @@ int main(int argc, char** argv) {
     }
     script[script_entry->uncompLen] = '\0';
 
-    const ZipEntry* file_contexts_entry = mzFindZipEntry(&za,SELINUX_CONTEXTS_ZIP);
-    if (file_contexts_entry != NULL) {
-	    int file_contexts_fd = creat(SELINUX_CONTEXTS_TMP, 0644);
-	    if (file_contexts_fd < 0) {
-		    fprintf(stderr, "Could not extract %s to '%s'\n",SELINUX_CONTEXTS_ZIP, SELINUX_CONTEXTS_TMP);
-		    return 3;
-	    }
-
-	    int ret_val = mzExtractZipEntryToFile(&za, file_contexts_entry, file_contexts_fd);
-	    close(file_contexts_fd);
-
-	    if (!ret_val) {
-		    fprintf(stderr, "Could not extract '%s'\n", SELINUX_CONTEXTS_ZIP);
-		    return 3;
-	    }
-    }
-
-
-
     // Configure edify's functions.
 
     RegisterBuiltins();
@@ -129,19 +108,14 @@ int main(int argc, char** argv) {
         return 6;
     }
 
-   if (access(SELINUX_CONTEXTS_TMP, R_OK) == 0) {
+  
 	   struct selinux_opt seopts[] = {
-		   { SELABEL_OPT_PATH, SELINUX_CONTEXTS_TMP }
-	   };
-
-	   sehandle = selabel_open(SELABEL_CTX_FILE, seopts, 1);
-   } else {
-	   struct selinux_opt seopts[] = {
+		  
 		   { SELABEL_OPT_PATH, "/file_contexts" }
 	   };
 
 	   sehandle = selabel_open(SELABEL_CTX_FILE, seopts, 1);
-   }
+  
 
 
     if (!sehandle) {
