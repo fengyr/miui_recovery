@@ -46,11 +46,6 @@
 #include "../../../sideload.h"
 #include "../../../iniparser/iniparser.h" //for iniparser 
 
-#ifdef ENABLE_LOKI
-#include "../../../loki/compact_loki.h"
-#endif
-
-
 
 #define ROOT_DEVICE 0x8
 #define DISABLE_OFFICAL_REC 0x9

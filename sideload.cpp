@@ -139,7 +139,9 @@ int start_adb_sideload() {
     if(currstatus == 1) {
        ui_print("Checking if loki-fying is needed");
        int result;
-       if(result = loki_check()) {
+       result = loki_check();
+
+       if(result != INSTALL_SUCCESS) {
            return result;
        }
     }
