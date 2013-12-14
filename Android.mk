@@ -132,15 +132,9 @@ endif
 include $(BUILD_EXECUTABLE)
 
 RECOVERY_LINKS := bu edify  flash_image dump_image mkyaffs2image \
-	unyaffs erase_image nandroid reboot  dedupe minizip \
-	start stop setup_adbd fsck_msdos newfs_msdos vdc \
+	unyaffs erase_image nandroid  dedupe minizip \
+	setup_adbd fsck_msdos newfs_msdos vdc \
 	sdcard  
-#for selinux 
-RECOVERY_LINKS += \
-		  getenforce setenforce \
-		  chcon runcon \
-		  getsebool setsebool \
-		  load_policy 
 ifeq ($(TARGET_USERIMAGES_USE_F2FS), true)
  RECOVERY_LINKS += mkfs.f2fs fsck.f2fs fibmap.f2fs
  endif
@@ -162,6 +156,10 @@ ALL_DEFAULT_INSTALLED_MODULES += $(RECOVERY_SYMLINKS)
 # Now let's do recovery symlinks
 BUSYBOX_LINKS := $(shell cat external/busybox/busybox-full.links)
 exclude := tune2fs mke2fs  
+ifeq ($(HAVE_SELINUX), true)
+exclude += ls
+	# toolbox will provide ls support ls -Z capability for listing SELinux contexts 
+endif
 RECOVERY_BUSYBOX_SYMLINKS := $(addprefix $(TARGET_ROOT_OUT)/sbin/,$(filter-out $(exclude),$(notdir $(BUSYBOX_LINKS))))
 $(RECOVERY_BUSYBOX_SYMLINKS): BUSYBOX_BINARY := busybox
 $(RECOVERY_BUSYBOX_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
@@ -199,25 +197,10 @@ LOCAL_CFLAGS =
 LOCAL_SRC_FILES = sideload.cpp  \
 		  bootloader.cpp \
 		  verifier.cpp \
-		  reboot.cpp \
 		  mtdutils/mtdutils.c \
 		  ../../system/core/toolbox/newfs_msdos.c \
                   ../../system/core/toolbox/dynarray.c \
-                  ../../system/vold/vdc.c \
-                   prop.c
-
-ifeq ($(HAVE_SELINUX),true)
-LOCAL_SRC_FILES += \
-	../../system/core/toolbox/getenforce.c \
-	../../system/core/toolbox/setenforce.c \
-	../../system/core/toolbox/chcon.c \
-	../../system/core/toolbox/restorecon.c \
-	../../system/core/toolbox/runcon.c \
-	../../system/core/toolbox/getsebool.c \
-	../../system/core/toolbox/setsebool.c \
-	../../system/core/toolbox/load_policy.c
-
-endif
+                  ../../system/vold/vdc.c
 
 LOCAL_C_INCLUDES += system/extras/ext4_utils system/core/fs_mgr/include
 LOCAL_SHARED_LIBRARIES += libc liblog libcutils libmtdutils \
@@ -226,49 +209,27 @@ LOCAL_STATIC_LIBRARIES += libmincrypt libminshacrypt libselinux
 
 include $(BUILD_SHARED_LIBRARY)
 
-
-#add extra library
-#include bionic/libm/Android.mk
-#include external/yaffs2/Android.mk
-#add from cm7
 include $(commands_recovery_local_path)/bmlutils/Android.mk
 include $(commands_recovery_local_path)/flashutils/Android.mk
 include $(commands_recovery_local_path)/libcrecovery/Android.mk
-#end
 include $(commands_recovery_local_path)/miui/Android.mk
 include $(commands_recovery_local_path)/minelf/Android.mk
-#end
-#add libminadbd for sideload
 include $(commands_recovery_local_path)/minadbd/Android.mk
-#add libminui 
 include $(commands_recovery_local_path)/minui/Android.mk
-
 include $(commands_recovery_local_path)/minzip/Android.mk
 include $(commands_recovery_local_path)/mtdutils/Android.mk
-#add from cm7
 include $(commands_recovery_local_path)/mmcutils/Android.mk
-#end
 include $(commands_recovery_local_path)/tools/Android.mk
 include $(commands_recovery_local_path)/edify/Android.mk
 include $(commands_recovery_local_path)/updater/Android.mk
 include $(commands_recovery_local_path)/applypatch/Android.mk
-
-#add by sndnvaps@gmail.com from Gaojiquan
-#include $(commands_recovery_local_path)/supersu/Android.mk
-#end 
-
-#add dedupe to replace the tar backup method
 include $(commands_recovery_local_path)/dedupe/Android.mk
-#add some shell script
 include $(commands_recovery_local_path)/utilities/Android.mk
-#add digest
 include $(commands_recovery_local_path)/digest/Android.mk
-#add device conf
 include $(commands_recovery_local_path)/devices/Android.mk
-#include $(commands_recovery_local_path)/su/Android.mk
-#add device_image
 include $(commands_recovery_local_path)/device_image/Android.mk
 include $(commands_recovery_local_path)/voldclient/Android.mk
 include $(commands_recovery_local_path)/iniparser/Android.mk 
+include $(commands_recovery_local_path)/toolbox/Android.mk 
 commands_recovery_local_path :=
 

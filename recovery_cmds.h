@@ -35,10 +35,7 @@ extern int erase_image_main(int argc, char **argv);
 extern int mkyaffs2image_main(int argc, char **argv);
 extern int unyaffs_main(int argc, char **argv);
 extern int make_ext4fs_main(int argc, char **argv);
-extern int reboot_main(int argc, char **argv);
 extern int poweroff_main(int argc, char **argv);
-extern int setprop_main(int argc, char **argv);
-extern int getprop_main(int argc, char **argv);
 extern int fsck_msdos_main(int argc, char **argv);
 extern int newfs_msdos_main(int argc, char **argv);
 extern int vdc_main(int argc, char **argv);
@@ -48,15 +45,6 @@ extern int sdcard_main(int argc, char **argv);
 extern int make_f2fs_main(int argc, char **argv);
 extern int fsck_f2fs_main(int argc, char **argv);
 extern int fibmap_main(int argc, char **argv);
-#endif
-#ifdef HAVE_SELINUX
-extern int getenforce_mian(int argc, char **argv);
-extern int setenforce_mian(int argc, char **argv);
-extern int chcon_main(int argc, char **argv);
-extern int runcon_main(int argc, char **argv);
-extern int getsebool_main(int argc, char **argv);
-extern int setsebool_main(int argc, char **argv);
-extern int load_policy_main(int argc, char **argv);
 #endif
 extern int busybox_driver(int argc, char **argv);
 
@@ -78,10 +66,6 @@ static const struct recovery_cmd recovery_cmds[] = {
     { "make_ext4fs",    make_ext4fs_main },
     { "nandroid",       nandroid_main },
     { "bu",             bu_main },
-    { "reboot",         reboot_main },
-    { "poweroff",       reboot_main },
-    { "setprop",        setprop_main },
-    { "getprop",        getprop_main },
     { "fsck_msdos",     fsck_msdos_main },
     { "newfs_msdos",    newfs_msdos_main },
     { "vdc",            vdc_main },
@@ -91,15 +75,6 @@ static const struct recovery_cmd recovery_cmds[] = {
     { "mkfs.f2fs",      make_f2fs_main },
     { "fsck.f2fs",      fsck_f2fs_main },
     { "fibmap.f2fs",    fibmap_main },
-#endif
-#ifdef HAVE_SELINUX
-    { "getenforce",     getenforce_main },
-    { "setenforce",     setenforce_main },
-    { "chcon",          chcon_main },
-    { "runcon",         runcon_main },
-    { "getsebool",      getsebool_main },
-    { "setsebool",      setsebool_main },
-    { "load_policy",    load_policy_main },
 #endif
     { NULL, NULL },
 };
