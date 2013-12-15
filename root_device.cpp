@@ -648,7 +648,7 @@ void root_device::process_volumes() {
 }
 
 
-int root_device::set_ini_files(string ini) {
+void root_device::set_ini_files(string ini) {
 	ini_files = ini;
 }
 

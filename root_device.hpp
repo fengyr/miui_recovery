@@ -50,7 +50,7 @@ class root_device {
 
 	     //settings.ini 
 	     string ini_files;
-	     int set_ini_files(string ini);
+	     void set_ini_files(string ini);
         public:
              static void process_volumes();
 
