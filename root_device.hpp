@@ -47,8 +47,16 @@ class root_device {
              static void create_fstab();
              //check bml partition
              static int bml_check_volume(const char *path);
+
+	     //settings.ini 
+	     string ini_files;
+	     int set_ini_files(string ini);
         public:
              static void process_volumes();
+
+	     //load settings.ini 
+	      int load_def_settings();
+
 	    
 
 	   

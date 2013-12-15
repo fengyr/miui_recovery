@@ -66,27 +66,6 @@ dictionary * ini;
    struct stat st;
  
      miuiIntent_send(INTENT_MOUNT, 1, "/sdcard");
-     if (stat("/sdcard/miui_recovery", &st) != 0) {
-     miuiIntent_send(INTENT_SYSTEM, 1, "mkdir -p /sdcard/miui_recovery");
-     }
-     if (stat(INI_FILES, &st) != 0) {
-	     FILE *f = fopen(INI_FILES, "w+");
-	     if (f == NULL) 
-		     return 1;
-	     fprintf(stderr, "Loading default settings.ini\n");
-
-	     fprintf(f, "%s", 
-			     "[zipflash]\n"
-			     "md5sum=1\n"
-			     "\n"
-			     "\n"
-			     "[dev]\n"
-			     "signaturecheck=0\n"
-#ifdef ENABLE_LOKI
-			     "loki_support=1\n"
-#endif
-			     "\n\n");
-	     fclose(f);
      ini = iniparser_load(INI_FILES);
      if (ini==NULL)
          return 1;
